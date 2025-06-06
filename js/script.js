@@ -1,7 +1,7 @@
 // Seleziona tutte le sezioni con id e tutti i link della navbar
 const sezioni = document.querySelectorAll("section[id]");
 const linkNavigazione = document.querySelectorAll(".nav-link");
-const logo = document.getElementById("logo"); // Seleziona l'elemento del logo
+const logo = document.getElementById("logo");
 
 // Funzione per rimuovere la classe 'active' da tutti i link
 function rimuoviClasseAttiva() {
@@ -14,7 +14,8 @@ function impostaAttivoAlloScroll() {
 
   sezioni.forEach((sezione) => {
     const altezzaSezione = sezione.offsetHeight;
-    // Calcola la posizione della sezione, compensando l'altezza dell'header fisso
+    // La posizione della sezione è influenzata dall'header fisso,
+    // quindi sottraiamo la sua altezza e un margine extra.
     const posizioneSezione = sezione.offsetTop - 160;
     const idSezione = sezione.getAttribute("id");
 
@@ -30,41 +31,35 @@ function impostaAttivoAlloScroll() {
 
 // Funzione per gestire il ridimensionamento del logo allo scroll
 function gestisciRidimensionamentoLogo() {
-  if (window.scrollY > 50) { // Se l'utente ha scrollato di più di 50 pixel
-    logo.style.height = "60px"; // Riduci l'altezza del logo a 60px
+  if (window.scrollY > 50) {
+    logo.style.height = "60px";
   } else {
-    logo.style.height = "90px"; // Altrimenti, reimposta l'altezza originale a 90px
+    logo.style.height = "90px";
   }
 }
 
-// Aggiunge un listener all'evento 'scroll' della finestra
-// Quando l'utente scorre, vengono chiamate entrambe le funzioni:
-// - per aggiornare il link attivo nella navbar
-// - per ridimensionare il logo
+// Evento scroll per aggiornare il link attivo e il logo
 window.addEventListener("scroll", () => {
   impostaAttivoAlloScroll();
   gestisciRidimensionamentoLogo();
 });
 
-// Aggiunge un listener per ogni link della navbar per lo scroll dolce
+// Evento click per scroll dolce dei link della navbar
 linkNavigazione.forEach((link) => {
   link.addEventListener("click", (e) => {
-    e.preventDefault(); // Previene il comportamento predefinito del click (salto immediato)
-    const idTarget = link.getAttribute("href").substring(1); // Ottiene l'ID della sezione target
+    e.preventDefault(); // Previene il comportamento predefinito del link
+    const idTarget = link.getAttribute("href").substring(1);
     const sezioneTarget = document.getElementById(idTarget);
 
     if (sezioneTarget) {
-      // Scorre dolcemente fino alla sezione, compensando l'altezza dell'header per una visuale ottimale
+      // Scorre fino alla sezione, compensando l'altezza dell'header
       window.scrollTo({
-        top: sezioneTarget.offsetTop - 140, // 140px per compensare l'header fisso
-        behavior: "smooth", // Abilita l'animazione di scroll fluida
+        top: sezioneTarget.offsetTop - 140,
+        behavior: "smooth", // Animazione di scroll fluida
       });
     }
   });
 });
 
-// Imposta il link attivo corretto e la dimensione del logo all'apertura della pagina
-window.addEventListener("load", () => {
-  impostaAttivoAlloScroll();
-  gestisciRidimensionamentoLogo();
-});
+// Imposta il link attivo corretto all'apertura della pagina
+window.addEventListener("load", impostaAttivoAlloScroll);

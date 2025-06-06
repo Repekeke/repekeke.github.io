@@ -6,7 +6,8 @@
   --transizione-veloce: 0.3s ease;
   --altezza-logo-grande: 90px;
   --altezza-logo-piccolo: 60px;
-  --spaziatura-sezione-verticale: 80px;
+  --spaziatura-sezione-verticale-desktop: 80px;
+  --spaziatura-sezione-verticale-mobile: 40px; /* Nuova spaziatura per mobile */
   --header-altezza-compensazione: 150px; /* Offset per lo scroll-margin-top delle sezioni */
 }
 
@@ -15,6 +16,13 @@ body {
   scroll-behavior: smooth; /* Abilita lo scroll fluido per gli ancoraggi */
   background-color: #fff;
   font-family: Arial, sans-serif;
+  line-height: 1.6; /* Migliora la leggibilità del testo */
+  color: #333; /* Colore testo generale */
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: var(--colore-primario);
+  margin-bottom: 0.5em;
 }
 
 /* --- Header e Navbar --- */
@@ -45,6 +53,7 @@ header {
   transition: color var(--transizione-veloce), transform var(--transizione-veloce);
   padding: 8px 16px;
   text-decoration: none; /* Rimuove la sottolineatura predefinita */
+  font-size: 1.05em; /* Leggermente più grande per leggibilità */
 }
 
 /* Effetto di sottolineatura e hover per i link della navbar */
@@ -79,7 +88,7 @@ header {
 
 /* --- Sezioni Generiche --- */
 .section {
-  padding: var(--spaziatura-sezione-verticale) 20px;
+  padding: var(--spaziatura-sezione-verticale-desktop) 20px;
   min-height: 100vh; /* Ogni sezione occupa almeno l'altezza della viewport */
   scroll-margin-top: var(--header-altezza-compensazione); /* Compensazione per l'header fisso durante lo scroll verso gli ancoraggi */
 }
@@ -144,6 +153,7 @@ header {
   padding: 10px;
   border-radius: 5px;
   border: 1px solid #ccc; /* Bordo standard per gli input */
+  font-size: 1rem; /* Assicura che gli input siano leggibili */
 }
 
 /* Sovrascrive il bottone .btn-dark di Bootstrap con i nostri colori */
@@ -155,6 +165,11 @@ header {
   border-radius: 5px;
   cursor: pointer;
   transition: background-color var(--transizione-veloce);
+  font-size: 1.1rem; /* Dimensione maggiore per il bottone */
+  display: block; /* Per far sì che occupi tutta la larghezza del contenitore */
+  width: 100%; /* Su mobile occupa tutta la larghezza, su desktop lo gestisce col-md-6 */
+  max-width: 200px; /* Limita la larghezza su desktop */
+  margin: 0 auto; /* Centra il bottone */
 }
 
 .btn-dark:hover {
@@ -171,36 +186,107 @@ footer {
 
 footer p {
   margin: 0;
-  font-size: 1rem;
+  font-size: 0.9rem; /* Testo più piccolo per il footer */
 }
 
-/* --- Media Queries (per dispositivi mobili) --- */
-@media (max-width: 768px) {
+footer .fab {
+  font-size: 1.5rem; /* Icone social leggermente più grandi */
+  margin: 0 8px; /* Spazio tra le icone */
+}
+
+/* --- Media Queries (Reattività per Mobile) --- */
+@media (max-width: 992px) { /* Tablet e schermi più piccoli del desktop */
   .navbar-nav {
-    flex-direction: column;
-    align-items: center; /* Centra gli elementi verticalmente */
+    flex-direction: column; /* I link della navbar si dispongono in colonna */
+    align-items: center; /* Centra i link */
+    padding: 10px 0; /* Aggiunge un po' di padding verticale */
   }
 
   .nav-item {
-    margin: 5px 0; /* Spazio verticale tra i link su mobile */
+    margin: 5px 0; /* Spazio verticale tra i link della navbar */
+  }
+
+  .section {
+    padding: var(--spaziatura-sezione-verticale-mobile) 15px; /* Riduci il padding verticale e orizzontale */
+    min-height: auto; /* Rimuovi min-height 100vh per evitare scroll eccessivi su mobile */
+  }
+
+  h2 {
+    font-size: 2rem; /* Titoli H2 leggermente più piccoli su tablet */
+    margin-bottom: 25px !important;
+  }
+}
+
+@media (max-width: 768px) { /* Smartphone in modalità landscape e tablet più piccoli */
+  .navbar-toggler {
+    display: block; /* Mostra il toggler (icona hamburger) */
+    margin-left: auto; /* Sposta il toggler a destra */
+  }
+
+  .navbar-collapse {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background-color: white;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    border-top: 1px solid #eee;
+  }
+
+  .navbar-nav {
+    align-items: flex-start; /* Allinea a sinistra nel menu a scomparsa */
+    padding-left: 20px; /* Indentazione per i link nel menu */
   }
 
   .menu-item {
-    flex-direction: column;
-    align-items: flex-start; /* Allinea il contenuto a sinistra */
+    flex-direction: column; /* Impila titolo, descrizione e prezzo */
+    align-items: flex-start; /* Allinea a sinistra il contenuto del menu item */
   }
 
   .menu-item-line {
-    display: none; /* Nasconde la linea su mobile per pulizia */
+    display: none; /* Nasconde la linea tratteggiata su mobile per pulizia */
   }
 
   .menu-item-price {
     text-align: left;
-    margin-top: 5px;
-    margin-left: 0; /* Rimuove il margine sinistro su mobile */
+    margin-top: 5px; /* Spazio sopra il prezzo */
+    margin-left: 0; /* Rimuove il margine sinistro */
+    width: 100%; /* Il prezzo occupa tutta la larghezza per chiarezza */
   }
 
-  h2 { /* Ridimensiona tutti gli h2 per una migliore leggibilità su mobile */
-    font-size: 1.8rem !important;
+  h2 {
+    font-size: 1.7rem !important; /* Titoli H2 più piccoli per smartphone */
+  }
+
+  h3 {
+    font-size: 1.3rem; /* Titoli H3 più piccoli */
+  }
+
+  .lead { /* Paragrafi "lead" (come "Chi Siamo") */
+    font-size: 1.05rem;
+  }
+
+  .btn-dark {
+    max-width: none; /* Il bottone occupa tutta la larghezza disponibile nel suo contenitore */
+  }
+}
+
+@media (max-width: 576px) { /* Schermi molto piccoli, tipici degli smartphone in modalità portrait */
+  .text-center img { /* Regola per il logo se necessario */
+    max-width: 80%;
+    height: auto;
+  }
+
+  h2 {
+    font-size: 1.5rem !important; /* Ulteriore riduzione della dimensione dei titoli */
+    margin-bottom: 20px !important;
+  }
+
+  .section {
+    padding: var(--spaziatura-sezione-verticale-mobile) 10px; /* Riduci ulteriormente il padding */
+  }
+
+  footer {
+    padding: 20px 10px; /* Riduci il padding del footer */
   }
 }
