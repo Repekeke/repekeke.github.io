@@ -1,0 +1,229 @@
+/* Base */
+body {
+  scroll-behavior: smooth;
+  background-color: #fff;
+  font-family: Arial, sans-serif;
+}
+
+/* Logo */
+#logo {
+  height: 90px;
+  transition: height 0.3s ease;
+}
+
+/* Sezioni */
+.section {
+  padding: 160px 20px 100px;
+  min-height: 100vh;
+  scroll-margin-top: 150px;
+}
+
+/* Navbar */
+.navbar {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+  z-index: 1020;
+  background-color: white;
+}
+
+.navbar-nav {
+  display: flex;
+  justify-content: center;
+}
+
+.nav-item {
+  position: relative;
+}
+
+.nav-link {
+  color: black;
+  font-weight: 500;
+  position: relative;
+  transition: color 0.3s ease, transform 0.3s ease;
+  padding: 8px 16px;
+}
+
+.nav-link:hover {
+  transform: translateY(-3px);
+  color: #000;
+}
+
+.nav-link::after {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 2px;
+  width: 0;
+  background-color: #000;
+  transition: width 0.3s ease, left 0.3s ease;
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+  left: 0;
+}
+
+/* Quando un item della navbar è attivo */
+.nav-link.active {
+  font-weight: bold;
+  color: #000;
+}
+
+.nav-link.active::after {
+  width: 100%;
+  left: 0;
+}
+
+.nav-item:hover .nav-link::after {
+  width: 100%;
+  left: 0;
+}
+
+.nav-item:hover .nav-link {
+  color: #000;
+  transform: translateY(-3px);
+}
+
+/* Menu */
+.menu-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  padding-bottom: 10px;
+}
+
+.menu-item-title {
+  font-weight: bold;
+}
+
+.menu-description {
+  font-style: italic;
+}
+
+.menu-item-line {
+  flex: 1;
+  border-bottom: 1px dashed #000;
+  margin: 0 10px;
+}
+
+.menu-item-price {
+  text-align: right;
+  font-weight: bold;
+  color: #000;
+}
+
+/* Prenota */
+#prenota {
+  background-color: #f8f9fa;
+  padding: 60px 20px;
+}
+
+#prenota h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+}
+
+#prenota .form-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+#prenota .form-group {
+  margin-bottom: 20px;
+}
+
+#prenota .form-control {
+  padding: 10px;
+  border-radius: 5px;
+}
+
+#prenota .btn-primary {
+  background-color: #000;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#prenota .btn-primary:hover {
+  background-color: #333;
+}
+
+/* Contatti */
+#contatti p {
+  font-size: 1.1rem;
+}
+
+#contatti .form-container {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+#contatti .form-group {
+  margin-bottom: 20px;
+}
+
+#contatti .form-control {
+  padding: 10px;
+  border-radius: 5px;
+}
+
+#contatti .btn-primary {
+  background-color: #000;
+  color: white;
+  border: none;
+  padding: 12px 25px;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+#contatti .btn-primary:hover {
+  background-color: #333;
+}
+
+/* Footer */
+footer {
+  background-color: #343a40;
+  color: white;
+  padding: 30px 20px;
+}
+
+footer p {
+  margin: 0;
+  font-size: 1rem;
+}
+
+/* Media Queries (per dispositivi mobili) */
+@media (max-width: 768px) {
+  .navbar-nav {
+    flex-direction: column;
+  }
+
+  .menu-item {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .menu-item-price {
+    text-align: left;
+    margin-top: 5px;
+  }
+
+  #prenota .form-container,
+  #contatti .form-container {
+    width: 100%;
+  }
+
+  #prenota h2 {
+    font-size: 1.5rem;
+  }
+}
+
+.logo {
+  height: 100px;
+  transition: height 0.3s ease;
+}
