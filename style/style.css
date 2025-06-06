@@ -1,52 +1,53 @@
-/* Base */
+/* Variabili CSS: per colori e dimensioni comuni, rende il codice più facile da mantenere */
+:root {
+  --colore-primario: #000; /* Nero principale per testo, linee, bottoni */
+  --colore-secondario: #333; /* Grigio scuro per hover dei bottoni */
+  --colore-sfondo-chiaro: #f8f9fa; /* Sfondo per sezioni chiare */
+  --transizione-veloce: 0.3s ease;
+  --altezza-logo-grande: 90px;
+  --altezza-logo-piccolo: 60px;
+  --spaziatura-sezione-verticale: 80px;
+  --header-altezza-compensazione: 150px; /* Offset per lo scroll-margin-top delle sezioni */
+}
+
+/* --- Stili Base --- */
 body {
-  scroll-behavior: smooth;
+  scroll-behavior: smooth; /* Abilita lo scroll fluido per gli ancoraggi */
   background-color: #fff;
   font-family: Arial, sans-serif;
 }
 
-/* Logo */
+/* --- Header e Navbar --- */
+header {
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* Ombra leggera per un effetto elevato */
+  z-index: 1020; /* Assicura che l'header sia sopra gli altri elementi */
+}
+
 #logo {
-  height: 90px;
-  transition: height 0.3s ease;
+  height: var(--altezza-logo-grande); /* Altezza iniziale del logo */
+  transition: height var(--transizione-veloce); /* Transizione per il ridimensionamento */
 }
 
-/* Sezioni */
-.section {
-  padding: 160px 20px 100px;
-  min-height: 100vh;
-  scroll-margin-top: 150px;
-}
-
-/* Navbar */
 .navbar {
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-  z-index: 1020;
-  background-color: white;
+  background-color: white; /* Sfondo bianco per la navbar */
 }
 
 .navbar-nav {
   display: flex;
   justify-content: center;
-}
-
-.nav-item {
-  position: relative;
+  width: 100%; /* Permette di centrare i link all'interno della navbar */
 }
 
 .nav-link {
-  color: black;
+  color: var(--colore-primario);
   font-weight: 500;
   position: relative;
-  transition: color 0.3s ease, transform 0.3s ease;
+  transition: color var(--transizione-veloce), transform var(--transizione-veloce);
   padding: 8px 16px;
+  text-decoration: none; /* Rimuove la sottolineatura predefinita */
 }
 
-.nav-link:hover {
-  transform: translateY(-3px);
-  color: #000;
-}
-
+/* Effetto di sottolineatura e hover per i link della navbar */
 .nav-link::after {
   content: "";
   position: absolute;
@@ -54,142 +55,118 @@ body {
   left: 0;
   height: 2px;
   width: 0;
-  background-color: #000;
-  transition: width 0.3s ease, left 0.3s ease;
+  background-color: var(--colore-primario);
+  transition: width var(--transizione-veloce), left var(--transizione-veloce);
 }
 
+.nav-link:hover {
+  transform: translateY(-3px); /* Sposta leggermente in su all'hover */
+  color: var(--colore-primario); /* Mantiene il colore nero all'hover */
+}
+
+/* Stile specifico per il link attivo e per l'hover (sottolineatura estesa) */
 .nav-link:hover::after,
 .nav-link.active::after {
   width: 100%;
   left: 0;
 }
 
-/* Quando un item della navbar è attivo */
+/* Stile specifico per il link attivo */
 .nav-link.active {
   font-weight: bold;
-  color: #000;
+  color: var(--colore-primario);
 }
 
-.nav-link.active::after {
-  width: 100%;
-  left: 0;
+/* --- Sezioni Generiche --- */
+.section {
+  padding: var(--spaziatura-sezione-verticale) 20px;
+  min-height: 100vh; /* Ogni sezione occupa almeno l'altezza della viewport */
+  scroll-margin-top: var(--header-altezza-compensazione); /* Compensazione per l'header fisso durante lo scroll verso gli ancoraggi */
 }
 
-.nav-item:hover .nav-link::after {
-  width: 100%;
-  left: 0;
-}
-
-.nav-item:hover .nav-link {
-  color: #000;
-  transform: translateY(-3px);
-}
-
-/* Menu */
+/* --- Sezione Menu --- */
 .menu-item {
   display: flex;
   justify-content: space-between;
+  align-items: flex-end; /* Allinea il prezzo e la descrizione in basso */
   margin-bottom: 20px;
   padding-bottom: 10px;
+  position: relative; /* Necessario per posizionare la linea */
+}
+
+.menu-item-content {
+  flex-grow: 1; /* Permette al contenuto di occupare lo spazio disponibile */
 }
 
 .menu-item-title {
   font-weight: bold;
+  font-size: 1.1em;
+  margin-bottom: 3px;
 }
 
 .menu-description {
   font-style: italic;
+  color: #555; /* Grigio più morbido per la descrizione */
+  font-size: 0.9em;
 }
 
 .menu-item-line {
   flex: 1;
-  border-bottom: 1px dashed #000;
+  border-bottom: 1px dashed #ccc; /* Linea puntinata più chiara */
   margin: 0 10px;
+  position: absolute; /* Posiziona la linea indipendentemente dal flusso del testo */
+  bottom: 5px; /* Appena sopra il padding-bottom del menu-item */
+  left: 0;
+  right: 0;
+  z-index: -1; /* Metti la linea dietro il testo */
 }
 
 .menu-item-price {
   text-align: right;
   font-weight: bold;
-  color: #000;
+  color: var(--colore-primario);
+  white-space: nowrap; /* Impedisce al prezzo di andare a capo */
+  margin-left: 15px; /* Spazio tra linea e prezzo */
 }
 
-/* Prenota */
-#prenota {
-  background-color: #f8f9fa;
-  padding: 60px 20px;
+/* --- Stili Generici per Form (Prenota e Contatti) --- */
+/* Questa classe può essere aggiunta alle sezioni #prenota e #contatti se condividono lo stesso background */
+.form-section-bg {
+  background-color: var(--colore-sfondo-chiaro);
 }
 
-#prenota h2 {
-  font-size: 2rem;
-  margin-bottom: 30px;
-}
-
-#prenota .form-container {
+.form-container {
   max-width: 600px;
   margin: 0 auto;
 }
 
-#prenota .form-group {
-  margin-bottom: 20px;
-}
-
-#prenota .form-control {
+.form-control {
   padding: 10px;
   border-radius: 5px;
+  border: 1px solid #ccc; /* Bordo standard per gli input */
 }
 
-#prenota .btn-primary {
-  background-color: #000;
+/* Sovrascrive il bottone .btn-dark di Bootstrap con i nostri colori */
+.btn-dark {
+  background-color: var(--colore-primario) !important; /* Forza il colore nero */
   color: white;
   border: none;
   padding: 12px 25px;
   border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s ease;
+  transition: background-color var(--transizione-veloce);
 }
 
-#prenota .btn-primary:hover {
-  background-color: #333;
+.btn-dark:hover {
+  background-color: var(--colore-secondario) !important; /* Grigio scuro all'hover */
 }
 
-/* Contatti */
-#contatti p {
-  font-size: 1.1rem;
-}
-
-#contatti .form-container {
-  max-width: 600px;
-  margin: 0 auto;
-}
-
-#contatti .form-group {
-  margin-bottom: 20px;
-}
-
-#contatti .form-control {
-  padding: 10px;
-  border-radius: 5px;
-}
-
-#contatti .btn-primary {
-  background-color: #000;
-  color: white;
-  border: none;
-  padding: 12px 25px;
-  border-radius: 5px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-#contatti .btn-primary:hover {
-  background-color: #333;
-}
-
-/* Footer */
+/* --- Footer --- */
 footer {
-  background-color: #343a40;
+  background-color: #343a40; /* Grigio scuro per il footer */
   color: white;
   padding: 30px 20px;
+  text-align: center; /* Centra il testo nel footer */
 }
 
 footer p {
@@ -197,33 +174,33 @@ footer p {
   font-size: 1rem;
 }
 
-/* Media Queries (per dispositivi mobili) */
+/* --- Media Queries (per dispositivi mobili) --- */
 @media (max-width: 768px) {
   .navbar-nav {
     flex-direction: column;
+    align-items: center; /* Centra gli elementi verticalmente */
+  }
+
+  .nav-item {
+    margin: 5px 0; /* Spazio verticale tra i link su mobile */
   }
 
   .menu-item {
     flex-direction: column;
-    align-items: flex-start;
+    align-items: flex-start; /* Allinea il contenuto a sinistra */
+  }
+
+  .menu-item-line {
+    display: none; /* Nasconde la linea su mobile per pulizia */
   }
 
   .menu-item-price {
     text-align: left;
     margin-top: 5px;
+    margin-left: 0; /* Rimuove il margine sinistro su mobile */
   }
 
-  #prenota .form-container,
-  #contatti .form-container {
-    width: 100%;
+  h2 { /* Ridimensiona tutti gli h2 per una migliore leggibilità su mobile */
+    font-size: 1.8rem !important;
   }
-
-  #prenota h2 {
-    font-size: 1.5rem;
-  }
-}
-
-.logo {
-  height: 100px;
-  transition: height 0.3s ease;
 }
