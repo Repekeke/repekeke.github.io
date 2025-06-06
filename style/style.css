@@ -290,3 +290,195 @@ footer .fab {
     padding: 20px 10px; /* Riduci il padding del footer */
   }
 }
+
+/* --- Stili per Menu Off-Canvas --- */
+.offcanvas-menu {
+  position: fixed;
+  top: 0;
+  left: -300px; /* Inizialmente nascosto fuori dallo schermo */
+  width: 300px; /* Larghezza del menu */
+  height: 100%;
+  background-color: var(--colore-primario); /* Usa il nero del footer */
+  z-index: 1050; /* Sopra la navbar e l'overlay */
+  transition: transform 0.4s ease-out; /* Animazione di scorrimento */
+  overflow-y: auto; /* Permette lo scroll se i contenuti superano l'altezza */
+  padding-top: 20px; /* Spazio in alto */
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.5); /* Ombra per profondità */
+}
+
+.offcanvas-menu.show {
+  transform: translateX(300px); /* Sposta il menu dentro lo schermo */
+}
+
+/* Stili del bottone di chiusura all'interno dell'off-canvas */
+.offcanvas-menu .close-btn {
+  position: absolute;
+  top: 15px;
+  right: 20px;
+  font-size: 2.5rem; /* Simbolo 'X' grande */
+  color: white;
+  background: none;
+  border: none;
+  cursor: pointer;
+  z-index: 1060; /* Assicura che sia cliccabile */
+  padding: 0;
+  line-height: 1;
+  opacity: 0.7;
+  transition: opacity var(--transizione-veloce);
+}
+
+.offcanvas-menu .close-btn:hover {
+  opacity: 1;
+}
+
+/* Stili per i link all'interno del menu off-canvas */
+.offcanvas-menu .navbar-nav {
+  /* Rimuovi display: flex e justify-content: center che erano per la navbar desktop */
+  display: block; /* O flex-column come suggerito in HTML */
+  width: auto;
+  padding: 20px; /* Padding interno per i link */
+}
+
+.offcanvas-menu .nav-item {
+  margin: 15px 0; /* Spazio verticale tra i link */
+}
+
+.offcanvas-menu .nav-link {
+  color: white; /* Colore del testo bianco per contrasto */
+  font-size: 1.2em; /* Rendiamo i link più grandi */
+  font-weight: 600;
+  padding: 10px 0; /* Padding dei link */
+}
+
+/* Rimuoviamo la sottolineatura sui link dell'off-canvas per un look più pulito */
+.offcanvas-menu .nav-link::after {
+  display: none;
+}
+
+.offcanvas-menu .nav-link:hover {
+  color: #ccc; /* Leggermente più chiaro all'hover */
+  transform: translateX(5px); /* Piccola animazione all'hover */
+}
+
+/* Stile specifico per il link attivo nel menu off-canvas */
+.offcanvas-menu .nav-link.active {
+  color: #ffc107; /* Un colore di accento (es. giallo) per il link attivo */
+  font-weight: bold;
+}
+
+
+/* --- Stili per Overlay Sfondo --- */
+.offcanvas-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7); /* Nero semi-trasparente */
+  z-index: 1040; /* Tra il menu e il contenuto */
+  opacity: 0;
+  visibility: hidden; /* Nascosto di default */
+  transition: opacity 0.4s ease-out, visibility 0s linear 0.4s; /* Ritardo per visibility */
+}
+
+.offcanvas-overlay.show {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.4s ease-out; /* Senza ritardo in apertura */
+}
+
+/* --- Stili per Blocco Scroll del Body --- */
+body.offcanvas-open {
+  overflow: hidden; /* Impedisce lo scroll del contenuto sotto il menu */
+}
+
+/* --- Migliorie al Pulsante Toggler (Hamburger) --- */
+.custom-toggler {
+  border: none;
+  background-color: transparent; /* Sfondo trasparente */
+  width: 45px; /* Dimensione del bottone */
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  transition: transform var(--transizione-veloce);
+}
+
+.custom-toggler:focus {
+  box-shadow: none; /* Rimuove l'outline di focus di Bootstrap se non desiderato */
+}
+
+.custom-toggler .navbar-toggler-icon {
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 0.8%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e");
+  /* Colore nero per l'icona hamburger */
+  width: 1.5em; /* Dimensione dell'icona */
+  height: 1.5em;
+}
+
+/* --- Ripristina la Navbar Desktop --- */
+/* Questa sezione assicura che la navbar sia sempre visibile e corretta su schermi grandi */
+@media (min-width: 992px) {
+  .navbar {
+    display: flex !important; /* Forza la navbar a essere visibile come flexbox */
+    background-color: white !important; /* Assicurati che lo sfondo sia bianco */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* L'ombra che avevi */
+  }
+
+  .navbar .container {
+    justify-content: center !important; /* Centra il contenuto della navbar */
+    display: flex !important; /* Assicurati che il container sia flex */
+  }
+
+  .navbar-toggler, /* Nasconde il bottone hamburger sul desktop */
+  .custom-toggler {
+    display: none !important;
+  }
+
+  /* I link di navigazione tornano visibili e in riga sul desktop */
+  .navbar-nav {
+    display: flex !important; /* Forza la visualizzazione come flexbox */
+    flex-direction: row !important; /* I link uno accanto all'altro */
+    justify-content: center !important; /* Centra i link nella navbar */
+    width: 100% !important; /* Occupano tutta la larghezza per il centraggio */
+    padding: 0 !important; /* Rimuovi padding che potrebbe venire dal mobile */
+  }
+
+  .nav-item {
+    margin: 0 15px !important; /* Spazio orizzontale tra i link */
+  }
+
+  .nav-link {
+    color: var(--colore-primario) !important; /* Colore nero originale dei link */
+    font-size: 1.05em !important;
+    font-weight: 500 !important;
+  }
+
+  /* Assicurati che il menu off-canvas e il suo overlay siano SEMPRE nascosti su desktop */
+  .offcanvas-menu,
+  .offcanvas-overlay {
+    display: none !important;
+  }
+}
+
+/* --- Media Queries Esistenti (Assicurati che non ci siano display: none inaspettati) --- */
+/* Verifica le tue media query esistenti per i breakpoint più piccoli */
+@media (max-width: 991.98px) { /* Modificato per essere esatto, .navbar-expand-lg si attiva a 992px */
+  /* Qui la navbar desktop deve sparire e apparire il toggler */
+  .navbar .container .navbar-nav {
+      display: none !important; /* Nasconde i link della navbar tradizionale su mobile */
+  }
+
+  .navbar-toggler,
+  .custom-toggler {
+    display: block !important; /* Mostra il bottone hamburger su mobile */
+    margin-right: auto; /* Posiziona il toggler a sinistra (se usi justify-content-between nel container) */
+  }
+
+  /* Assicurati che il menu off-canvas sia gestito da JS e non da display: none qui */
+  /* Le classi .show gestiranno la sua visibilità */
+}
+
+/* Le altre media query per mobile (768px, 576px) dovrebbero continuare a funzionare */
+/* per adattare il contenuto delle sezioni, ma non dovrebbero influenzare la navbar */
+/* a meno che non sia specificamente per il comportamento off-canvas. */
